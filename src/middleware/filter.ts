@@ -27,7 +27,8 @@ const filterMethUrl = (
     !url ||
     !(url.startsWith(`${BASEENDPOINT}/`) || url === BASEENDPOINT) ||
     url.match(/\/(\/)+/g) ||
-    numOfParams > 1
+    (method === "POST" && numOfParams > 0) ||
+    (method !== "POST" && numOfParams > 1)
   ) {
     res.statusCode = 400;
     res.setHeader("Content-Type", "application/json");

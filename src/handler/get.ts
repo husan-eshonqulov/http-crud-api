@@ -7,7 +7,7 @@ const getHandler = (req: CustomRequest, res: ServerResponse) => {
   const mainEndpoint = getMainEndpoint(req.url!);
 
   if (mainEndpoint === "/") {
-    const users = User.fetchAll();
+    const users = User.readAll();
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
 
@@ -15,7 +15,7 @@ const getHandler = (req: CustomRequest, res: ServerResponse) => {
   }
 
   const id = getIdParam(mainEndpoint);
-  const user = User.findById(id);
+  const user = User.readById(id);
 
   if (user) {
     res.statusCode = 200;

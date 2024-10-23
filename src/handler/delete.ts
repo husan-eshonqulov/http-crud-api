@@ -7,10 +7,10 @@ const deleteHandler = (req: CustomRequest, res: ServerResponse) => {
   const mainEndpoint = getMainEndpoint(req.url!);
   const id = getIdParam(mainEndpoint);
 
-  const user = User.findById(id);
+  const user = User.readById(id);
 
   if (user) {
-    const rmUser = User.remove(user.id);
+    const rmUser = User.delete(user.id);
     res.statusCode = 204;
     res.setHeader("Content-Type", "application/json");
     return res.end(JSON.stringify(rmUser));

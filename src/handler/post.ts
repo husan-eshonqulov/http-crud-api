@@ -14,8 +14,7 @@ const postHandler = (req: CustomRequest, res: ServerResponse) => {
   }
 
   if (mainEndpoint === "/") {
-    const newUser = new User(body.username, body.age, body.hobbies);
-    newUser.save();
+    const newUser = User.create(req.body);
     res.statusCode = 201;
     res.setHeader("Content-Type", "application/json");
     return res.end(JSON.stringify(newUser));

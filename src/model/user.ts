@@ -22,6 +22,13 @@ class User {
     return users.find((user) => user.id === id);
   }
 
+  static remove(id: string) {
+    const idx = users.findIndex((user) => user.id === id);
+    const user = users[idx];
+    users.splice(idx, 1);
+    return user;
+  }
+
   save() {
     const user = User.findById(this.id);
 
@@ -41,11 +48,6 @@ class User {
         hobbies: this.hobbies,
       });
     }
-  }
-
-  destroy() {
-    const idx = users.findIndex((user) => user.id === this.id);
-    users.splice(idx, 1);
   }
 }
 

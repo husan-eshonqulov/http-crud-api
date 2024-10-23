@@ -13,7 +13,7 @@ export type UserType = {
 };
 
 export interface CustomRequest extends IncomingMessage {
-  body: unknown;
+  body: Omit<UserType, "id">;
 }
 
 export type MiddlewareType = (

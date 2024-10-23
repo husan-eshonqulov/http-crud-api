@@ -21,7 +21,7 @@ const getHandler = (req: CustomRequest, res: ServerResponse) => {
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
 
-    return res.end(user);
+    return res.end(JSON.stringify(user));
   }
 
   res.statusCode = 404;

@@ -1,6 +1,7 @@
 import type { ServerResponse } from "node:http";
 import type { CustomRequest } from "../types";
 import config from "../config";
+import { getMainEndpoint, getNumOfParams } from "../helper/request";
 
 const BASEENDPOINT = config.baseEndpoint;
 const METHODS = ["GET", "POST", "PUT", "DELETE"];
@@ -12,6 +13,8 @@ const filterMethUrl = (
 ) => {
   const url = req.url;
   const method = req.method;
+  const mainEndpoint = getMainEndpoint(url!);
+  const numOfParams = getNumOfParams(mainEndpoint);
 
   if (!method || !METHODS.includes(method)) {
     res.statusCode = 405;
@@ -23,11 +26,12 @@ const filterMethUrl = (
   if (
     !url ||
     !(url.startsWith(`${BASEENDPOINT}/`) || url === BASEENDPOINT) ||
-    url.match(/\/(\/)+/g)
+    url.match(/\/(\/)+/g) ||
+    numOfParams > 1
   ) {
-    res.statusCode = 404;
+    res.statusCode = 400;
     res.setHeader("Content-Type", "application/json");
-    return res.end(JSON.stringify({ error: "Not Found" }));
+    return res.end(JSON.stringify({ error: "Bad Request" }));
   }
 
   next();

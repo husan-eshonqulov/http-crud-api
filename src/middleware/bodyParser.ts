@@ -22,13 +22,15 @@ const bodyParser = (
       return next();
     } catch (err) {
       res.statusCode = 400;
-      res.end({ error: err });
+      res.setHeader("Content-Type", "applilcation/json");
+      return res.end(JSON.stringify({ error: err }));
     }
   });
 
   req.on("error", () => {
     res.statusCode = 500;
-    res.end({ error: "Internal Server Error" });
+    res.setHeader("Content-Type", "applilcation/json");
+    return res.end(JSON.stringify({ error: "Internal Server Error" }));
   });
 };
 

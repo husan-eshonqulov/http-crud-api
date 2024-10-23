@@ -1,7 +1,8 @@
 import type { ServerResponse } from "node:http";
 import type { CustomRequest } from "../types";
+import config from "../config";
 
-const BASEURL = "/api/users";
+const BASEENDPOINT = config.baseEndpoint;
 const METHODS = ["GET", "POST", "PUT", "DELETE"];
 
 const filterMethUrl = (
@@ -19,7 +20,7 @@ const filterMethUrl = (
     return res.end(JSON.stringify({ error: "Method Not Allowed" }));
   }
 
-  if (!url || !(url.startsWith(`${BASEURL}/`) || url === BASEURL)) {
+  if (!url || !(url.startsWith(`${BASEENDPOINT}/`) || url === BASEENDPOINT)) {
     res.statusCode = 404;
     res.setHeader("Content-Type", "application/json");
     return res.end(JSON.stringify({ error: "Not Found" }));

@@ -2,6 +2,7 @@ import { IncomingMessage, ServerResponse } from "node:http";
 
 export type ConfigType = {
   port: number;
+  baseEndpoint: string;
 };
 
 export type UserType = {

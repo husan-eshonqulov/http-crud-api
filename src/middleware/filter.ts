@@ -20,7 +20,11 @@ const filterMethUrl = (
     return res.end(JSON.stringify({ error: "Method Not Allowed" }));
   }
 
-  if (!url || !(url.startsWith(`${BASEENDPOINT}/`) || url === BASEENDPOINT)) {
+  if (
+    !url ||
+    !(url.startsWith(`${BASEENDPOINT}/`) || url === BASEENDPOINT) ||
+    url.match(/\/(\/)+/g)
+  ) {
     res.statusCode = 404;
     res.setHeader("Content-Type", "application/json");
     return res.end(JSON.stringify({ error: "Not Found" }));

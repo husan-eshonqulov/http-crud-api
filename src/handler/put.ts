@@ -8,7 +8,7 @@ const putHandler = (req: CustomRequest, res: ServerResponse) => {
   const mainEndpoint = getMainEndpoint(req.url!);
   const id = getIdParam(mainEndpoint);
 
-  if (isValidId(id)) {
+  if (!isValidId(id)) {
     res.statusCode = 400;
     res.setHeader("Content-Type", "application/json");
 
